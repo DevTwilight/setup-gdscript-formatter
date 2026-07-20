@@ -1,0 +1,19 @@
+name: Setup GDScript Formatter
+description: Setup a specific version of GDScript Formatter.
+
+inputs:
+  version:
+    description: Version of GDScript Formatter to install.
+    required: true
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup GDScript Formatter
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+        INSTALL_DIR: ${{ runner.tool_cache }}/gdscript-formatter
+        
+      run: bash "$GITHUB_ACTION_PATH/install.sh"
