@@ -6,6 +6,20 @@ else
     BINARY="gdscript-formatter"
 fi
 
+if [[ "$CACHE_HIT" == "true" && -f "$INSTALL_DIR/$BINARY" ]]; then
+    if [[ "$RUNNER_OS" != "Windows" ]]; then
+        chmod +x "$INSTALL_DIR/$BINARY"
+    fi
+
+    echo "Adding GDScript Formatter to PATH"
+    echo "$INSTALL_DIR" >> "$GITHUB_PATH"
+    exit 0
+fi
+
+if [[ "$CACHE_ENABLED" == "false" ]]; then
+    echo "Caching is disabled."
+fi
+
 case "$RUNNER_OS" in
     Linux)
         OS="linux"

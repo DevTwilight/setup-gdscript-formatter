@@ -6,14 +6,29 @@ inputs:
     description: Version of GDScript Formatter to install.
     required: true
 
+  cache:
+    description: Whether to cache the installation.
+    required: false
+    default: false
+
 runs:
   using: composite
 
   steps:
+    - name: Cache GDScript Formatter
+      id: cache
+      if: inputs.cache == 'true'
+      uses: actions/cache@v6
+      with:
+        path: ${{ runner.tool_cache }}/gdscript-formatter/${{ inputs.version }}
+        key: gdscript-formatter-${{ runner.os }}-${{ runner.arch }}-${{ inputs.version }}
+
     - name: Setup GDScript Formatter
       shell: bash
       env:
         VERSION: ${{ inputs.version }}
-        INSTALL_DIR: ${{ runner.tool_cache }}/gdscript-formatter
+        INSTALL_DIR: ${{ runner.tool_cache }}/gdscript-formatter/${{ inputs.version }}
+        CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
+        CACHE_ENABLED: ${{ inputs.cache }}
         
       run: bash "$GITHUB_ACTION_PATH/install.sh"
