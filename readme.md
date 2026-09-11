@@ -4,8 +4,8 @@ A GitHub Action to install a specific version of **[GDScript Formatter](https://
 
 ## Versioning
 
-[!IMPORTANT]
-This action does not use major version tags. Releases are immutable, so pin the action to a specific release version to ensure reproducible workflows.
+> [!IMPORTANT]
+> This action does not use major version tags. Releases are immutable, so pin the action to a specific release version to ensure reproducible workflows.
 
 ## Inputs
 
@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Setup GDScript Formatter
-        uses: Modern-Arts-Research-Stories-Next/setup-gdscript-formatter@v1.0.0
+        uses: DevTwilight/setup-gdscript-formatter@v1.0.0
         with:
           version: 0.21.0
           cache: true
